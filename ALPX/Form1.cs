@@ -26,7 +26,7 @@ namespace ALPX
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Color bg_color = ColorTranslator.FromHtml("#212329");
+            Color bg_color = ColorTranslator.FromHtml("#050505");
             this.BackColor = bg_color;
 
             this.Opacity = 0.85;
