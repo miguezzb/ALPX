@@ -111,9 +111,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\1.png" />
+    <Content Include="Resources\clean.png" />
+    <Content Include="Resources\file-upload.png" />
     <Content Include="Resources\line.png" />
     <Content Include="Resources\line2.png" />
     <Content Include="Resources\logoALPX.ico" />
+    <Content Include="Resources\new.png" />
+    <Content Include="Resources\view.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
