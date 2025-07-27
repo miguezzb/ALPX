@@ -59,7 +59,7 @@
             this.BtnLimpia = new System.Windows.Forms.PictureBox();
             this.BtnVerDatos = new System.Windows.Forms.PictureBox();
             this.BtnCargaArchivo = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtnGastos1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
@@ -208,6 +208,8 @@
             this.BtnMasEmisor.TabIndex = 12;
             this.BtnMasEmisor.Text = "+";
             this.BtnMasEmisor.UseVisualStyleBackColor = true;
+            this.BtnMasEmisor.MouseEnter += new System.EventHandler(this.BtnMasEmisor_MouseEnter);
+            this.BtnMasEmisor.MouseLeave += new System.EventHandler(this.BtnMasEmisor_MouseLeave);
             // 
             // BtnMenEmisor
             // 
@@ -220,6 +222,8 @@
             this.BtnMenEmisor.TabIndex = 13;
             this.BtnMenEmisor.Text = "-";
             this.BtnMenEmisor.UseVisualStyleBackColor = true;
+            this.BtnMenEmisor.MouseEnter += new System.EventHandler(this.BtnMenEmisor_MouseEnter);
+            this.BtnMenEmisor.MouseLeave += new System.EventHandler(this.BtnMenEmisor_MouseLeave);
             // 
             // TxtSuma
             // 
@@ -283,6 +287,8 @@
             this.BtnMasRancho.TabIndex = 20;
             this.BtnMasRancho.Text = "+";
             this.BtnMasRancho.UseVisualStyleBackColor = true;
+            this.BtnMasRancho.MouseEnter += new System.EventHandler(this.BtnMasRancho_MouseEnter);
+            this.BtnMasRancho.MouseLeave += new System.EventHandler(this.BtnMasRancho_MouseLeave);
             // 
             // BtnMenosRancho
             // 
@@ -295,6 +301,8 @@
             this.BtnMenosRancho.TabIndex = 21;
             this.BtnMenosRancho.Text = "-";
             this.BtnMenosRancho.UseVisualStyleBackColor = true;
+            this.BtnMenosRancho.MouseEnter += new System.EventHandler(this.BtnMenosRancho_MouseEnter);
+            this.BtnMenosRancho.MouseLeave += new System.EventHandler(this.BtnMenosRancho_MouseLeave);
             // 
             // BtnMasGasto
             // 
@@ -307,6 +315,8 @@
             this.BtnMasGasto.TabIndex = 22;
             this.BtnMasGasto.Text = "+";
             this.BtnMasGasto.UseVisualStyleBackColor = true;
+            this.BtnMasGasto.MouseEnter += new System.EventHandler(this.BtnMasGasto_MouseEnter);
+            this.BtnMasGasto.MouseLeave += new System.EventHandler(this.BtnMasGasto_MouseLeave);
             // 
             // BtnMenGasto
             // 
@@ -319,6 +329,8 @@
             this.BtnMenGasto.TabIndex = 23;
             this.BtnMenGasto.Text = "-";
             this.BtnMenGasto.UseVisualStyleBackColor = true;
+            this.BtnMenGasto.MouseEnter += new System.EventHandler(this.BtnMenGasto_MouseEnter);
+            this.BtnMenGasto.MouseLeave += new System.EventHandler(this.BtnMenGasto_MouseLeave);
             // 
             // BtnMasConce
             // 
@@ -331,6 +343,8 @@
             this.BtnMasConce.TabIndex = 24;
             this.BtnMasConce.Text = "+";
             this.BtnMasConce.UseVisualStyleBackColor = true;
+            this.BtnMasConce.MouseEnter += new System.EventHandler(this.BtnMasConce_MouseEnter);
+            this.BtnMasConce.MouseLeave += new System.EventHandler(this.BtnMasConce_MouseLeave);
             // 
             // BtnMenConce
             // 
@@ -343,6 +357,8 @@
             this.BtnMenConce.TabIndex = 25;
             this.BtnMenConce.Text = "-";
             this.BtnMenConce.UseVisualStyleBackColor = true;
+            this.BtnMenConce.MouseEnter += new System.EventHandler(this.BtnMenConce_MouseEnter);
+            this.BtnMenConce.MouseLeave += new System.EventHandler(this.BtnMenConce_MouseLeave);
             // 
             // BtnGuardar
             // 
@@ -384,18 +400,18 @@
             this.BtnCargaArchivo.TabIndex = 29;
             this.BtnCargaArchivo.TabStop = false;
             // 
-            // button1
+            // BtnGastos1
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(552, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 30);
-            this.button1.TabIndex = 30;
-            this.button1.Text = "Gastos";
-            this.button1.UseVisualStyleBackColor = false;
+            this.BtnGastos1.BackColor = System.Drawing.Color.Transparent;
+            this.BtnGastos1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnGastos1.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnGastos1.ForeColor = System.Drawing.Color.White;
+            this.BtnGastos1.Location = new System.Drawing.Point(552, 8);
+            this.BtnGastos1.Name = "BtnGastos1";
+            this.BtnGastos1.Size = new System.Drawing.Size(75, 30);
+            this.BtnGastos1.TabIndex = 30;
+            this.BtnGastos1.Text = "Gastos";
+            this.BtnGastos1.UseVisualStyleBackColor = false;
             // 
             // button2
             // 
@@ -454,7 +470,7 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BtnGastos1);
             this.Controls.Add(this.BtnCargaArchivo);
             this.Controls.Add(this.BtnVerDatos);
             this.Controls.Add(this.BtnLimpia);
@@ -534,7 +550,7 @@
         private System.Windows.Forms.PictureBox BtnLimpia;
         private System.Windows.Forms.PictureBox BtnVerDatos;
         private System.Windows.Forms.PictureBox BtnCargaArchivo;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnGastos1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
