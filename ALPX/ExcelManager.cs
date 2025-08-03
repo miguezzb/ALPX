@@ -12,9 +12,9 @@ namespace ALPX
 {
     public static class ExcelManager
     {
-        private static Excel.Application excelApp;
-        private static Excel.Workbook workbook;
-        private static Excel.Worksheet worksheet;
+        public static Excel.Application excelApp;
+        public static Excel.Workbook workbook;
+        public static Excel.Worksheet worksheet;
 
         public static Excel.Application ExcelApp
         {
@@ -52,7 +52,7 @@ namespace ALPX
             }
         }
 
-        private static void InitializeExcelObjects()
+        public static void InitializeExcelObjects()
         {
             excelApp = new Excel.Application();
             excelApp.Visible = false;

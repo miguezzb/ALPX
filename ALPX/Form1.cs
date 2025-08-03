@@ -1,27 +1,46 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Globalization;
-using System.IO;
-using System.Collections;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
-using Excel = Microsoft.Office.Interop.Excel;
 using static ALPX.ExcelManager;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ALPX
 {
     public partial class Form1 : Form
     {
+        [DllImport("user32.dll")]
+
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+
+        public static int fila = 2;
+        public static int columna = 1;
+        private bool hayCambios = false;
+
+        private static readonly string FilePathCmbEmisor = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "docs", "CmbEmisor.txt");
+        private static readonly string FilePathCmbGasto = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "docs", "CmbGasto.txt");
+        private static readonly string FilePathCmbConce = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "docs", "CmbConce.txt");
+        private static readonly string FilePathCmbRancho = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "docs", "CmbRancho.txt");
+
         public Form1()
         {
             InitializeComponent();
+            InitializeExcelObjects();
+            CmbEmisorLoadItems();
+            CmbGastoLoadItems();
+            CmbConceLoadItems();
+            TextChangedElements();
             this.Activated += Form1_Activated;
             this.Deactivate += Form1_Deactivate;
         }
@@ -32,6 +51,42 @@ namespace ALPX
             this.BackColor = bg_color;
 
             this.Opacity = 0.85;
+
+            /* Autocompletado de los ComboBoxes */
+            CmbEmisor.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            CmbEmisor.AutoCompleteSource = AutoCompleteSource.ListItems;
+            CmbEmisor.DropDownStyle = ComboBoxStyle.DropDown;
+            CmbRancho.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            CmbRancho.AutoCompleteSource = AutoCompleteSource.ListItems;
+            CmbRancho.DropDownStyle = ComboBoxStyle.DropDown;
+            CmbGasto.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            CmbGasto.AutoCompleteSource = AutoCompleteSource.ListItems;
+            CmbGasto.DropDownStyle = ComboBoxStyle.DropDown;
+            CmbConce.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            CmbConce.AutoCompleteSource = AutoCompleteSource.ListItems;
+            CmbConce.DropDownStyle = ComboBoxStyle.DropDown;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (hayCambios) // Solo pregunta si hubo cambios
+            {
+                DialogResult result = MessageBox.Show("Hay cambios no guardados. ¿Deseas guardar antes de salir?", "Guardar cambios", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    GuardarExcel(); // Guarda si el usuario lo decide
+                }
+                else if (result == DialogResult.Cancel || result == DialogResult.No)
+                {
+                    CerrarExcel(); // Llamar al método para cerrar Excel cuando se cierra el formulario
+                    Application.Exit(); // Termina la ejecución del programa
+                }
+            }
+            else
+            {
+                CerrarExcel(); // Llamar al método para cerrar Excel cuando se cierra el formulario
+                Application.Exit(); // Termina la ejecución del programa
+            }
         }
 
         #region ANIMACIONES
@@ -137,5 +192,359 @@ namespace ALPX
             BtnMenConce.BackColor = Color.Transparent;
         }
         #endregion
+
+        #region EXCELOBJECTS
+        private void InitializeExcelObjects()
+        {
+            // Aquí las instancias se obtienen desde la clase ExcelManager
+            var excelApp = ExcelManager.ExcelApp;
+            var workbook = ExcelManager.Workbook;
+            var worksheet = ExcelManager.Worksheet;
+        }
+        #endregion
+
+        #region COMBOBOX
+        private void CmbEmisorLoadItems()
+        {
+            if (File.Exists(FilePathCmbEmisor))
+            {
+                var items = File.ReadAllLines(FilePathCmbEmisor);
+                CmbEmisor.Items.AddRange(items);
+            }
+        }
+        private void CmbGastoLoadItems()
+        {
+            if (File.Exists(FilePathCmbGasto))
+            {
+                var items = File.ReadAllLines(FilePathCmbGasto);
+                CmbGasto.Items.AddRange(items);
+            }
+        }
+        private void CmbConceLoadItems()
+        {
+            if (File.Exists(FilePathCmbConce))
+            {
+                var items = File.ReadAllLines(FilePathCmbConce);
+                CmbConce.Items.AddRange(items);
+            }
+        }
+        private void CmbRanchoLoadItems()
+        {
+            if (File.Exists(FilePathCmbRancho))
+            {
+                var items = File.ReadAllLines(FilePathCmbRancho);
+                CmbRancho.Items.AddRange(items);
+            }
+        }
+        private void BtnMasEmisor_Click(object sender, EventArgs e)
+        {
+            var newItem = CmbEmisor.Text.Trim();
+            if (!string.IsNullOrEmpty(newItem) && !CmbEmisor.Items.Contains(newItem))
+            {
+                CmbEmisor.Items.Add(newItem);
+                SaveItemsCmbEmisor();
+            }
+        }
+        private void BtnMasGasto_Click(object sender, EventArgs e)
+        {
+            var newItem2 = CmbGasto.Text.Trim();
+            if (!string.IsNullOrEmpty(newItem2) && !CmbGasto.Items.Contains(newItem2))
+            {
+                CmbGasto.Items.Add(newItem2);
+                SaveItemsCmbGasto();
+            }
+        }
+        private void BtnMasConce_Click(object sender, EventArgs e)
+        {
+            var newItem3 = CmbConce.Text.Trim();
+            if (!string.IsNullOrEmpty(newItem3) && !CmbConce.Items.Contains(newItem3))
+            {
+                CmbConce.Items.Add(newItem3);
+                SaveItemsCmbConce();
+            }
+        }
+        private void BtnMasRancho_Click(object sender, EventArgs e)
+        {
+            var newItem4 = CmbRancho.Text.Trim();
+            if (!string.IsNullOrEmpty(newItem4) && !CmbRancho.Items.Contains(newItem4))
+            {
+                CmbRancho.Items.Add(newItem4);
+                SaveItemsCmbRancho();
+            }
+        }
+        private void SaveItemsCmbEmisor()
+        {
+            var items = CmbEmisor.Items.Cast<string>().ToArray();
+            File.WriteAllLines(FilePathCmbEmisor, items);
+        }
+        private void SaveItemsCmbGasto()
+        {
+            var items2 = CmbGasto.Items.Cast<string>().ToArray();
+            File.WriteAllLines(FilePathCmbGasto, items2);
+        }
+        private void SaveItemsCmbConce()
+        {
+            var items3 = CmbConce.Items.Cast<string>().ToArray();
+            File.WriteAllLines(FilePathCmbConce, items3);
+        }
+        private void SaveItemsCmbRancho()
+        {
+            var items = CmbRancho.Items.Cast<string>().ToArray();
+            File.WriteAllLines(FilePathCmbEmisor, items);
+        }
+        private void BtnMenEmisor_Click(object sender, EventArgs e)
+        {
+            var selectedItem = CmbEmisor.SelectedItem;
+            if (selectedItem != null)
+            {
+                CmbEmisor.Items.Remove(selectedItem);
+                SaveItemsCmbEmisor();
+            }
+        }
+        private void BtnMenGasto_Click(object sender, EventArgs e)
+        {
+            var selectedItem2 = CmbGasto.SelectedItem;
+            if (selectedItem2 != null)
+            {
+                CmbGasto.Items.Remove(selectedItem2);
+                CmbGasto.Text = "";
+                SaveItemsCmbGasto();
+            }
+        }
+        private void BtnMenConce_Click(object sender, EventArgs e)
+        {
+            var selectedItem3 = CmbConce.SelectedItem;
+            if (selectedItem3 != null)
+            {
+                CmbConce.Items.Remove(selectedItem3);
+                CmbConce.Text = "";
+                SaveItemsCmbConce();
+            }
+        }
+        private void BtnMenosRancho_Click(object sender, EventArgs e)
+        {
+            var selectedItem4 = CmbRancho.SelectedItem;
+            if (selectedItem4 != null)
+            {
+                CmbRancho.Items.Remove(selectedItem4);
+                CmbRancho.Text = "";
+                SaveItemsCmbRancho();
+            }
+        }
+        #endregion
+
+        #region BTN GUARDAR & NUEVO
+        private void TxtSuma_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Verificar si el carácter no es un número (dígitos del 0 al 9) ni la tecla de retroceso
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
+            {
+                // Si no es un número o tecla de retroceso, cancelar el evento para bloquear la entrada
+                e.Handled = true;
+            }
+        }
+        private void TxtDocto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Verificar si el carácter no es un número (dígitos del 0 al 9) ni la tecla de retroceso
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b')
+            {
+                // Si no es un número o tecla de retroceso, cancelar el evento para bloquear la entrada
+                e.Handled = true;
+            }
+        }
+        private void BtnGuardar_Click(object sender, EventArgs e)
+        {
+            // Obtener el valor del DateTimePicker
+            DateTime selectedDate = dateTimePicker1.Value;
+            int year = selectedDate.Year;
+            int month = selectedDate.Month;
+            int day = selectedDate.Day;
+            string CmbEmisorText = "";
+            string CmbGastoText = "";
+            string CmbConceText = "";
+            string CmbRanchoText = "";
+
+            // Obtener el valor de CmbEmisor
+            if (CmbEmisor.SelectedItem != null)
+            {
+                CmbEmisorText = CmbEmisor.SelectedItem.ToString();
+            }
+            else
+            {
+                CmbEmisorText = CmbEmisor.Text;
+            }
+
+            // Obtener el valor de CmbRancho
+            if (CmbRancho.SelectedItem != null)
+            {
+                CmbRanchoText = CmbRancho.SelectedItem.ToString();
+            }
+            else
+            {
+                CmbRanchoText = CmbRancho.Text;
+            }
+
+            // Obtener el valor de CmbGasto
+            if (CmbGasto.SelectedItem != null)
+            {
+                CmbGastoText = CmbGasto.SelectedItem.ToString();
+            }
+            else
+            {
+                CmbGastoText = CmbGasto.Text;
+            }
+
+            // Obtener el valor de CmbConce
+            if (CmbConce.SelectedItem != null)
+            {
+                CmbConceText = CmbConce.SelectedItem.ToString();
+            }
+            else
+            {
+                CmbConceText = CmbConce.Text;
+            }
+
+            decimal? sumaValue = null;
+            try
+            {
+                // Intenta convertir el texto a decimal utilizando la cultura específica
+                if (!string.IsNullOrEmpty(TxtSuma.Text))
+                {
+                    sumaValue = Convert.ToDecimal(TxtSuma.Text, new CultureInfo("es-ES"));
+                }
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Por favor, introduce un número válido. Error: " + ex.ToString(), "Error de Formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ha ocurrido un error inesperado. Error: " + ex.ToString(), "Error Inesperado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            // Crear e inicializar un array de info sacada de las cajas de texto
+            object[] datos_array = new object[] {
+                year,
+                month,
+                day,
+                CmbEmisorText,
+                sumaValue,
+                !string.IsNullOrEmpty(TxtDocto.Text) ? Convert.ToInt32(TxtDocto.Text) : (int?)null,
+                CmbRanchoText,
+                CmbGastoText,
+                CmbConceText,
+                TxtCombustible.Text
+            };
+
+            int valor_vacio = 0;
+
+            for (int i = 0; i < datos_array.Length; i++)
+            {
+                if (string.IsNullOrEmpty(datos_array[i]?.ToString().Trim()))
+                {
+                    valor_vacio += 1;
+                    if (valor_vacio == 7)
+                    {
+                        MessageBox.Show("Por favor ingrese algún dato en las celdas", "Cajas vacías", MessageBoxButtons.OK);
+                    }
+                }
+                else
+                {
+                    Excel.Range cell = (Excel.Range)worksheet.Cells[fila, columna]; // Obtener el rango de la celda actual
+
+                    if (columna == 5 && sumaValue.HasValue) // Si es la columna 5 y sumaValue tiene un valor, aplica formato de moneda
+                    {
+                        cell.NumberFormat = "$#,##0.00"; // Formato de moneda
+                    }
+
+                    cell.Value2 = datos_array[i]; // Asignar el valor a la celda
+
+                    columna++; // Incrementar el contador de columna
+                }
+            }
+
+            LimpiarTodo();
+            fila++;
+            columna = 1;
+        }
+        #endregion
+
+        #region BTN LIMPIAR
+        private void BtnLimpia_Click(object sender, EventArgs e)
+        {
+            LimpiarTodo();
+        }
+        private void LimpiarTodo()
+        {
+            dateTimePicker1.Value = DateTime.Now;
+            CmbEmisor.SelectedIndex = -1;
+            CmbEmisor.Text = "";
+            TxtSuma.Clear();
+            TxtDocto.Clear();
+            CmbRancho.SelectedIndex = -1;
+            CmbRancho.Text = "";
+            CmbGasto.SelectedIndex = -1;
+            CmbGasto.Text = "";
+            CmbConce.SelectedIndex = -1;
+            CmbConce.Text = "";
+            TxtCombustible.Clear();
+        }
+        #endregion
+
+        #region BTN VER DATOS
+
+        #endregion
+
+        #region  TEXTCHANGED
+        private void CambiosRealizados_Event(object sender, EventArgs e)
+        {
+            hayCambios = true;
+        }
+        private void TextChangedElements()
+        {
+            // Asignamos los eventos a las cajas de texto
+            TxtSuma.TextChanged += new EventHandler(CambiosRealizados_Event);
+            CmbEmisor.SelectedIndexChanged += new EventHandler(CambiosRealizados_Event);
+            CmbRancho.SelectedIndexChanged += new EventHandler(CambiosRealizados_Event);
+
+            // Asignamos el evento click a los botones
+            BtnGuardar.Click += new EventHandler(CambiosRealizados_Event);
+            BtnVerDatos.Click += new EventHandler(CambiosRealizados_Event);
+            BtnCargaArchivo.Click += new EventHandler(CambiosRealizados_Event);
+        }
+        #endregion
+
+        private void BtnVerDatos_Click(object sender, EventArgs e)
+        {
+            excelApp.Visible = true;
+        }
+        private void BtnCargaArchivo_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+            openFileDialog.Title = "Seleccionar archivo de Excel";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    // Abrir el archivo de Excel
+                    excelApp = new Excel.Application();
+                    workbook = excelApp.Workbooks.Open(openFileDialog.FileName);
+                    worksheet = (Excel.Worksheet)workbook.Sheets[1]; // Primera hoja
+
+                    // Encontrar la última fila con datos
+                    Excel.Range lastCell = worksheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing);
+                    fila = lastCell.Row + 1;
+                    columna = 1;
+
+                    MessageBox.Show("Archivo cargado exitosamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al cargar el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }

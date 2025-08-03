@@ -208,6 +208,7 @@
             this.BtnMasEmisor.TabIndex = 12;
             this.BtnMasEmisor.Text = "+";
             this.BtnMasEmisor.UseVisualStyleBackColor = true;
+            this.BtnMasEmisor.Click += new System.EventHandler(this.BtnMasEmisor_Click);
             this.BtnMasEmisor.MouseEnter += new System.EventHandler(this.BtnMasEmisor_MouseEnter);
             this.BtnMasEmisor.MouseLeave += new System.EventHandler(this.BtnMasEmisor_MouseLeave);
             // 
@@ -222,6 +223,7 @@
             this.BtnMenEmisor.TabIndex = 13;
             this.BtnMenEmisor.Text = "-";
             this.BtnMenEmisor.UseVisualStyleBackColor = true;
+            this.BtnMenEmisor.Click += new System.EventHandler(this.BtnMenEmisor_Click);
             this.BtnMenEmisor.MouseEnter += new System.EventHandler(this.BtnMenEmisor_MouseEnter);
             this.BtnMenEmisor.MouseLeave += new System.EventHandler(this.BtnMenEmisor_MouseLeave);
             // 
@@ -232,6 +234,7 @@
             this.TxtSuma.Name = "TxtSuma";
             this.TxtSuma.Size = new System.Drawing.Size(375, 28);
             this.TxtSuma.TabIndex = 14;
+            this.TxtSuma.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtSuma_KeyPress);
             // 
             // TxtDocto
             // 
@@ -240,6 +243,7 @@
             this.TxtDocto.Name = "TxtDocto";
             this.TxtDocto.Size = new System.Drawing.Size(375, 28);
             this.TxtDocto.TabIndex = 15;
+            this.TxtDocto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtDocto_KeyPress);
             // 
             // CmbRancho
             // 
@@ -287,6 +291,7 @@
             this.BtnMasRancho.TabIndex = 20;
             this.BtnMasRancho.Text = "+";
             this.BtnMasRancho.UseVisualStyleBackColor = true;
+            this.BtnMasRancho.Click += new System.EventHandler(this.BtnMasRancho_Click);
             this.BtnMasRancho.MouseEnter += new System.EventHandler(this.BtnMasRancho_MouseEnter);
             this.BtnMasRancho.MouseLeave += new System.EventHandler(this.BtnMasRancho_MouseLeave);
             // 
@@ -301,6 +306,7 @@
             this.BtnMenosRancho.TabIndex = 21;
             this.BtnMenosRancho.Text = "-";
             this.BtnMenosRancho.UseVisualStyleBackColor = true;
+            this.BtnMenosRancho.Click += new System.EventHandler(this.BtnMenosRancho_Click);
             this.BtnMenosRancho.MouseEnter += new System.EventHandler(this.BtnMenosRancho_MouseEnter);
             this.BtnMenosRancho.MouseLeave += new System.EventHandler(this.BtnMenosRancho_MouseLeave);
             // 
@@ -315,6 +321,7 @@
             this.BtnMasGasto.TabIndex = 22;
             this.BtnMasGasto.Text = "+";
             this.BtnMasGasto.UseVisualStyleBackColor = true;
+            this.BtnMasGasto.Click += new System.EventHandler(this.BtnMasGasto_Click);
             this.BtnMasGasto.MouseEnter += new System.EventHandler(this.BtnMasGasto_MouseEnter);
             this.BtnMasGasto.MouseLeave += new System.EventHandler(this.BtnMasGasto_MouseLeave);
             // 
@@ -329,6 +336,7 @@
             this.BtnMenGasto.TabIndex = 23;
             this.BtnMenGasto.Text = "-";
             this.BtnMenGasto.UseVisualStyleBackColor = true;
+            this.BtnMenGasto.Click += new System.EventHandler(this.BtnMenGasto_Click);
             this.BtnMenGasto.MouseEnter += new System.EventHandler(this.BtnMenGasto_MouseEnter);
             this.BtnMenGasto.MouseLeave += new System.EventHandler(this.BtnMenGasto_MouseLeave);
             // 
@@ -343,6 +351,7 @@
             this.BtnMasConce.TabIndex = 24;
             this.BtnMasConce.Text = "+";
             this.BtnMasConce.UseVisualStyleBackColor = true;
+            this.BtnMasConce.Click += new System.EventHandler(this.BtnMasConce_Click);
             this.BtnMasConce.MouseEnter += new System.EventHandler(this.BtnMasConce_MouseEnter);
             this.BtnMasConce.MouseLeave += new System.EventHandler(this.BtnMasConce_MouseLeave);
             // 
@@ -357,6 +366,7 @@
             this.BtnMenConce.TabIndex = 25;
             this.BtnMenConce.Text = "-";
             this.BtnMenConce.UseVisualStyleBackColor = true;
+            this.BtnMenConce.Click += new System.EventHandler(this.BtnMenConce_Click);
             this.BtnMenConce.MouseEnter += new System.EventHandler(this.BtnMenConce_MouseEnter);
             this.BtnMenConce.MouseLeave += new System.EventHandler(this.BtnMenConce_MouseLeave);
             // 
@@ -369,6 +379,7 @@
             this.BtnGuardar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.BtnGuardar.TabIndex = 26;
             this.BtnGuardar.TabStop = false;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
             // BtnLimpia
             // 
@@ -379,6 +390,7 @@
             this.BtnLimpia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.BtnLimpia.TabIndex = 27;
             this.BtnLimpia.TabStop = false;
+            this.BtnLimpia.Click += new System.EventHandler(this.BtnLimpia_Click);
             // 
             // BtnVerDatos
             // 
@@ -389,6 +401,7 @@
             this.BtnVerDatos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.BtnVerDatos.TabIndex = 28;
             this.BtnVerDatos.TabStop = false;
+            this.BtnVerDatos.Click += new System.EventHandler(this.BtnVerDatos_Click);
             // 
             // BtnCargaArchivo
             // 
@@ -399,6 +412,7 @@
             this.BtnCargaArchivo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.BtnCargaArchivo.TabIndex = 29;
             this.BtnCargaArchivo.TabStop = false;
+            this.BtnCargaArchivo.Click += new System.EventHandler(this.BtnCargaArchivo_Click);
             // 
             // BtnGastos1
             // 
@@ -506,6 +520,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ALPX";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
