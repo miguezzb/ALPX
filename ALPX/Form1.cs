@@ -66,7 +66,6 @@ namespace ALPX
             CmbConce.AutoCompleteSource = AutoCompleteSource.ListItems;
             CmbConce.DropDownStyle = ComboBoxStyle.DropDown;
         }
-
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (hayCambios) // Solo pregunta si hubo cambios
@@ -79,121 +78,18 @@ namespace ALPX
                 else if (result == DialogResult.Cancel || result == DialogResult.No)
                 {
                     CerrarExcel(); // Llamar al método para cerrar Excel cuando se cierra el formulario
-                    Application.Exit(); // Termina la ejecución del programa
+                    System.Windows.Forms.Application.Exit(); // Termina la ejecución del programa
                 }
             }
             else
             {
                 CerrarExcel(); // Llamar al método para cerrar Excel cuando se cierra el formulario
-                Application.Exit(); // Termina la ejecución del programa
+                System.Windows.Forms.Application.Exit(); // Termina la ejecución del programa
             }
         }
 
-        #region ANIMACIONES
-        private void Form1_Activated(object sender, EventArgs e)
-        {
-            // Cuando el Form1 está activo
-            BtnGastos1.BackColor = ColorTranslator.FromHtml("#9389d2"); // Elige el color que quieras
-            BtnGastos1.Enabled = false;
-        }
-        private void Form1_Deactivate(object sender, EventArgs e)
-        {
-            // Cuando Form1 pierde el foco (por ejemplo, otro formulario o ventana externa)
-            BtnGastos1.BackColor = Color.Transparent;  // Color por defecto o el que prefieras
-            BtnGastos1.Enabled = true;
-        }
 
-        private void BtnMasEmisor_MouseEnter(object sender, EventArgs e)
-        {
-            BtnMasEmisor.BackColor = ColorTranslator.FromHtml("#cef17b");
-            BtnMasEmisor.ForeColor = Color.Black;
-        }
-        private void BtnMasEmisor_MouseLeave(object sender, EventArgs e)
-        {
-            BtnMasEmisor.FlatStyle = FlatStyle.Flat;
-            BtnMasEmisor.FlatAppearance.BorderSize = 0;
-            BtnMasEmisor.BackColor = Color.Transparent;
-            BtnMasEmisor.ForeColor = Color.White;
-        }
-        private void BtnMenEmisor_MouseEnter(object sender, EventArgs e)
-        {
-            BtnMenEmisor.BackColor = ColorTranslator.FromHtml("#e61421");
-        }
-        private void BtnMenEmisor_MouseLeave(object sender, EventArgs e)
-        {
-            BtnMenEmisor.FlatStyle = FlatStyle.Flat;
-            BtnMenEmisor.FlatAppearance.BorderSize = 0;
-            BtnMenEmisor.BackColor = Color.Transparent;
-        }
-        private void BtnMasRancho_MouseEnter(object sender, EventArgs e)
-        {
-            BtnMasRancho.BackColor = ColorTranslator.FromHtml("#cef17b");
-            BtnMasRancho.ForeColor = Color.Black;
-        }
-        private void BtnMasRancho_MouseLeave(object sender, EventArgs e)
-        {
-            BtnMasRancho.FlatStyle = FlatStyle.Flat;
-            BtnMasRancho.FlatAppearance.BorderSize = 0;
-            BtnMasRancho.BackColor = Color.Transparent;
-            BtnMasRancho.ForeColor = Color.White;
-        }
-        private void BtnMenosRancho_MouseEnter(object sender, EventArgs e)
-        {
-            BtnMenosRancho.BackColor = ColorTranslator.FromHtml("#e61421");
-        }
-        private void BtnMenosRancho_MouseLeave(object sender, EventArgs e)
-        {
-            BtnMenosRancho.FlatStyle = FlatStyle.Flat;
-            BtnMenosRancho.FlatAppearance.BorderSize = 0;
-            BtnMenosRancho.BackColor = Color.Transparent;
-        }
-        private void BtnMasGasto_MouseEnter(object sender, EventArgs e)
-        {
-            BtnMasGasto.BackColor = ColorTranslator.FromHtml("#cef17b");
-            BtnMasGasto.ForeColor = Color.Black;
-        }
-        private void BtnMasGasto_MouseLeave(object sender, EventArgs e)
-        {
-            BtnMasGasto.FlatStyle = FlatStyle.Flat;
-            BtnMasGasto.FlatAppearance.BorderSize = 0;
-            BtnMasGasto.BackColor = Color.Transparent;
-            BtnMasGasto.ForeColor = Color.White;
-        }
-        private void BtnMenGasto_MouseEnter(object sender, EventArgs e)
-        {
-            BtnMenGasto.BackColor = ColorTranslator.FromHtml("#e61421");
-        }
-        private void BtnMenGasto_MouseLeave(object sender, EventArgs e)
-        {
-            BtnMenGasto.FlatStyle = FlatStyle.Flat;
-            BtnMenGasto.FlatAppearance.BorderSize = 0;
-            BtnMenGasto.BackColor = Color.Transparent;
-        }
-        private void BtnMasConce_MouseEnter(object sender, EventArgs e)
-        {
-            BtnMasConce.BackColor = ColorTranslator.FromHtml("#cef17b");
-            BtnMasConce.ForeColor = Color.Black;
-        }
-        private void BtnMasConce_MouseLeave(object sender, EventArgs e)
-        {
-            BtnMasConce.FlatStyle = FlatStyle.Flat;
-            BtnMasConce.FlatAppearance.BorderSize = 0;
-            BtnMasConce.BackColor = Color.Transparent;
-            BtnMasConce.ForeColor = Color.White;
-        }
-        private void BtnMenConce_MouseEnter(object sender, EventArgs e)
-        {
-            BtnMenConce.BackColor = ColorTranslator.FromHtml("#e61421");
-        }
-        private void BtnMenConce_MouseLeave(object sender, EventArgs e)
-        {
-            BtnMenConce.FlatStyle = FlatStyle.Flat;
-            BtnMenConce.FlatAppearance.BorderSize = 0;
-            BtnMenConce.BackColor = Color.Transparent;
-        }
-        #endregion
-
-        #region EXCELOBJECTS
+        #region [ EXCELOBJECTS ]
         private void InitializeExcelObjects()
         {
             // Aquí las instancias se obtienen desde la clase ExcelManager
@@ -203,7 +99,7 @@ namespace ALPX
         }
         #endregion
 
-        #region COMBOBOX
+        #region [ COMBOBOX ]
         private void CmbEmisorLoadItems()
         {
             if (File.Exists(FilePathCmbEmisor))
@@ -333,7 +229,140 @@ namespace ALPX
         }
         #endregion
 
-        #region BTN GUARDAR & NUEVO
+        #region [ GUARDAR/CERRAR EXCEL ] 
+        private void GuardarExcel()
+        {
+            try
+            {
+                // Solo intenta guardar si hubo cambios
+                if (hayCambios && excelApp != null && workbook != null)
+                {
+                    string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                    string fileName = "programaALPX.xlsx";
+                    string filePath = System.IO.Path.Combine(desktopPath, fileName);
+
+                    // Guarda el archivo en el escritorio
+                    BtnGuardar_Click(this, EventArgs.Empty);
+                    workbook.SaveAs(filePath);
+
+                    // Cierra el libro de trabajo y libera recursos
+                    workbook.Close(true);
+                    Marshal.ReleaseComObject(workbook);
+                    workbook = null;
+
+                    excelApp.Quit();
+                    Marshal.ReleaseComObject(excelApp);
+                    excelApp = null;
+
+                    MessageBox.Show("Archivo guardado con éxito.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                if (worksheet != null)
+                {
+                    Marshal.ReleaseComObject(worksheet);
+                    worksheet = null;
+                }
+            }
+            catch (COMException ex)
+            {
+                MessageBox.Show($"Error liberando recursos de Excel: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Recolección de basura para liberar objetos COM de Excel
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
+                // Verifica si aún existe la instancia de Excel y cierra solo esa instancia
+                if (excelApp != null)
+                {
+                    try
+                    {
+                        int excelProcessId = 0;
+                        GetWindowThreadProcessId(new IntPtr(excelApp.Hwnd), out excelProcessId);
+
+                        if (excelProcessId != 0)
+                        {
+                            Process excelProcess = Process.GetProcessById(excelProcessId);
+                            if (excelProcess != null && !excelProcess.HasExited)
+                            {
+                                excelProcess.Kill();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error cerrando la instancia de Excel: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        private void CerrarExcel()
+        {
+            try
+            {
+                // Liberar recursos de Excel
+                if (worksheet != null)
+                {
+                    Marshal.ReleaseComObject(worksheet);
+                    worksheet = null;
+                }
+
+                if (workbook != null)
+                {
+                    workbook.Close(false); // Cierra el workbook sin guardar los cambios
+                    Marshal.ReleaseComObject(workbook);
+                    workbook = null;
+                }
+
+                if (excelApp != null)
+                {
+                    excelApp.Quit(); // Cierra la aplicación de Excel
+                    Marshal.ReleaseComObject(excelApp);
+                    excelApp = null;
+                }
+            }
+            catch (COMException ex)
+            {
+                MessageBox.Show($"Error liberando recursos de Excel: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Recolección de basura para liberar objetos COM de Excel
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
+                // Verifica si aún existe la instancia de Excel y cierra solo esa instancia
+                if (excelApp != null)
+                {
+                    try
+                    {
+                        int excelProcessId = 0;
+                        GetWindowThreadProcessId(new IntPtr(excelApp.Hwnd), out excelProcessId);
+
+                        if (excelProcessId != 0)
+                        {
+                            Process excelProcess = Process.GetProcessById(excelProcessId);
+                            if (excelProcess != null && !excelProcess.HasExited)
+                            {
+                                excelProcess.Kill();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error cerrando la instancia de Excel: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region [ BTN GUARDAR/NUEVO ]
         private void TxtSuma_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Verificar si el carácter no es un número (dígitos del 0 al 9) ni la tecla de retroceso
@@ -469,7 +498,7 @@ namespace ALPX
         }
         #endregion
 
-        #region BTN LIMPIAR
+        #region [ BTN LIMPIAR ]
         private void BtnLimpia_Click(object sender, EventArgs e)
         {
             LimpiarTodo();
@@ -491,29 +520,7 @@ namespace ALPX
         }
         #endregion
 
-        #region BTN VER DATOS
-
-        #endregion
-
-        #region  TEXTCHANGED
-        private void CambiosRealizados_Event(object sender, EventArgs e)
-        {
-            hayCambios = true;
-        }
-        private void TextChangedElements()
-        {
-            // Asignamos los eventos a las cajas de texto
-            TxtSuma.TextChanged += new EventHandler(CambiosRealizados_Event);
-            CmbEmisor.SelectedIndexChanged += new EventHandler(CambiosRealizados_Event);
-            CmbRancho.SelectedIndexChanged += new EventHandler(CambiosRealizados_Event);
-
-            // Asignamos el evento click a los botones
-            BtnGuardar.Click += new EventHandler(CambiosRealizados_Event);
-            BtnVerDatos.Click += new EventHandler(CambiosRealizados_Event);
-            BtnCargaArchivo.Click += new EventHandler(CambiosRealizados_Event);
-        }
-        #endregion
-
+        #region [ BTN VER DATOS ]
         private void BtnVerDatos_Click(object sender, EventArgs e)
         {
             excelApp.Visible = true;
@@ -546,5 +553,143 @@ namespace ALPX
                 }
             }
         }
+        #endregion
+
+        #region [ BTN SIGUIENTE ]
+        private void BtnForm2_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+
+            this.Hide();
+
+            form2.Show();
+
+            form2.FormClosed += (s, args) => this.Close();
+        }
+        #endregion
+
+
+        #region / ANIMACIONES /
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            // Cuando el Form1 está activo
+            BtnGastos1.BackColor = ColorTranslator.FromHtml("#9389d2"); // Elige el color que quieras
+            BtnGastos1.Enabled = false;
+        }
+        private void Form1_Deactivate(object sender, EventArgs e)
+        {
+            // Cuando Form1 pierde el foco (por ejemplo, otro formulario o ventana externa)
+            BtnGastos1.BackColor = Color.Transparent;  // Color por defecto o el que prefieras
+            BtnGastos1.Enabled = true;
+        }
+
+        private void BtnMasEmisor_MouseEnter(object sender, EventArgs e)
+        {
+            BtnMasEmisor.BackColor = ColorTranslator.FromHtml("#cef17b");
+            BtnMasEmisor.ForeColor = Color.Black;
+        }
+        private void BtnMasEmisor_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMasEmisor.FlatStyle = FlatStyle.Flat;
+            BtnMasEmisor.FlatAppearance.BorderSize = 0;
+            BtnMasEmisor.BackColor = Color.Transparent;
+            BtnMasEmisor.ForeColor = Color.White;
+        }
+        private void BtnMenEmisor_MouseEnter(object sender, EventArgs e)
+        {
+            BtnMenEmisor.BackColor = ColorTranslator.FromHtml("#e61421");
+        }
+        private void BtnMenEmisor_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMenEmisor.FlatStyle = FlatStyle.Flat;
+            BtnMenEmisor.FlatAppearance.BorderSize = 0;
+            BtnMenEmisor.BackColor = Color.Transparent;
+        }
+        private void BtnMasRancho_MouseEnter(object sender, EventArgs e)
+        {
+            BtnMasRancho.BackColor = ColorTranslator.FromHtml("#cef17b");
+            BtnMasRancho.ForeColor = Color.Black;
+        }
+        private void BtnMasRancho_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMasRancho.FlatStyle = FlatStyle.Flat;
+            BtnMasRancho.FlatAppearance.BorderSize = 0;
+            BtnMasRancho.BackColor = Color.Transparent;
+            BtnMasRancho.ForeColor = Color.White;
+        }
+        private void BtnMenosRancho_MouseEnter(object sender, EventArgs e)
+        {
+            BtnMenosRancho.BackColor = ColorTranslator.FromHtml("#e61421");
+        }
+        private void BtnMenosRancho_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMenosRancho.FlatStyle = FlatStyle.Flat;
+            BtnMenosRancho.FlatAppearance.BorderSize = 0;
+            BtnMenosRancho.BackColor = Color.Transparent;
+        }
+        private void BtnMasGasto_MouseEnter(object sender, EventArgs e)
+        {
+            BtnMasGasto.BackColor = ColorTranslator.FromHtml("#cef17b");
+            BtnMasGasto.ForeColor = Color.Black;
+        }
+        private void BtnMasGasto_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMasGasto.FlatStyle = FlatStyle.Flat;
+            BtnMasGasto.FlatAppearance.BorderSize = 0;
+            BtnMasGasto.BackColor = Color.Transparent;
+            BtnMasGasto.ForeColor = Color.White;
+        }
+        private void BtnMenGasto_MouseEnter(object sender, EventArgs e)
+        {
+            BtnMenGasto.BackColor = ColorTranslator.FromHtml("#e61421");
+        }
+        private void BtnMenGasto_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMenGasto.FlatStyle = FlatStyle.Flat;
+            BtnMenGasto.FlatAppearance.BorderSize = 0;
+            BtnMenGasto.BackColor = Color.Transparent;
+        }
+        private void BtnMasConce_MouseEnter(object sender, EventArgs e)
+        {
+            BtnMasConce.BackColor = ColorTranslator.FromHtml("#cef17b");
+            BtnMasConce.ForeColor = Color.Black;
+        }
+        private void BtnMasConce_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMasConce.FlatStyle = FlatStyle.Flat;
+            BtnMasConce.FlatAppearance.BorderSize = 0;
+            BtnMasConce.BackColor = Color.Transparent;
+            BtnMasConce.ForeColor = Color.White;
+        }
+        private void BtnMenConce_MouseEnter(object sender, EventArgs e)
+        {
+            BtnMenConce.BackColor = ColorTranslator.FromHtml("#e61421");
+        }
+        private void BtnMenConce_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMenConce.FlatStyle = FlatStyle.Flat;
+            BtnMenConce.FlatAppearance.BorderSize = 0;
+            BtnMenConce.BackColor = Color.Transparent;
+        }
+        #endregion
+
+        #region  / TEXTCHANGED /
+        private void CambiosRealizados_Event(object sender, EventArgs e)
+        {
+            hayCambios = true;
+        }
+        private void TextChangedElements()
+        {
+            // Asignamos los eventos a las cajas de texto
+            TxtSuma.TextChanged += new EventHandler(CambiosRealizados_Event);
+            CmbEmisor.SelectedIndexChanged += new EventHandler(CambiosRealizados_Event);
+            CmbRancho.SelectedIndexChanged += new EventHandler(CambiosRealizados_Event);
+
+            // Asignamos el evento click a los botones
+            BtnGuardar.Click += new EventHandler(CambiosRealizados_Event);
+            BtnVerDatos.Click += new EventHandler(CambiosRealizados_Event);
+            BtnCargaArchivo.Click += new EventHandler(CambiosRealizados_Event);
+        }
+        #endregion
     }
 }

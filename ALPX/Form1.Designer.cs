@@ -60,7 +60,7 @@
             this.BtnVerDatos = new System.Windows.Forms.PictureBox();
             this.BtnCargaArchivo = new System.Windows.Forms.PictureBox();
             this.BtnGastos1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.BtnForm2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -427,17 +427,18 @@
             this.BtnGastos1.Text = "Gastos";
             this.BtnGastos1.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // BtnForm2
             // 
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button2.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(633, 8);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(230, 30);
-            this.button2.TabIndex = 31;
-            this.button2.Text = "Resumen de Gastos General";
-            this.button2.UseVisualStyleBackColor = true;
+            this.BtnForm2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnForm2.Font = new System.Drawing.Font("Arial Narrow", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnForm2.ForeColor = System.Drawing.Color.White;
+            this.BtnForm2.Location = new System.Drawing.Point(633, 8);
+            this.BtnForm2.Name = "BtnForm2";
+            this.BtnForm2.Size = new System.Drawing.Size(230, 30);
+            this.BtnForm2.TabIndex = 31;
+            this.BtnForm2.Text = "Resumen de Gastos General";
+            this.BtnForm2.UseVisualStyleBackColor = true;
+            this.BtnForm2.Click += new System.EventHandler(this.BtnForm2_Click);
             // 
             // button3
             // 
@@ -483,7 +484,7 @@
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.BtnForm2);
             this.Controls.Add(this.BtnGastos1);
             this.Controls.Add(this.BtnCargaArchivo);
             this.Controls.Add(this.BtnVerDatos);
@@ -566,7 +567,7 @@
         private System.Windows.Forms.PictureBox BtnVerDatos;
         private System.Windows.Forms.PictureBox BtnCargaArchivo;
         private System.Windows.Forms.Button BtnGastos1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button BtnForm2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
